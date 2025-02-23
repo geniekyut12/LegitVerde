@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".eggtoast"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/eggtoastM"
+                android:layout_width="427dp"
+                android:layout_height="506dp"
+                android:layout_marginEnd="12dp"
+                android:background="@color/quizgreen"
+                android:elevation="4dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/eggtst3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="50dp"
+                    android:src="@drawable/food4" />
+
+                <TextView
+                    android:id="@+id/eggtsttxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="21dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/eggtoast"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <LinearLayout
+                    android:id="@+id/timerCaloriesLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="3dp"
+                        android:src="@drawable/clock" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/eggtstmins"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="29dp"
+                        android:layout_height="29dp"
+                        android:layout_marginStart="16dp"
+                        android:src="@drawable/metabolism" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="@string/eggtstcal"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/eggtoas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/mainbg"
+                android:elevation="4dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/eggtoastM">
+
+                <TextView
+                    android:id="@+id/eggtstingr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="21dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/eggtstIngr"
+                    android:textColor="#000000"
+                    android:textSize="21sp"/>
+
+                <TextView
+                    android:id="@+id/eggtstingr1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppinsregular"
+                    android:text="@string/eggtstIngr1"
+                    android:textColor="#000000"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/eggtstproc1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="21dp"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="@string/procedure"
+                    android:textColor="#000000"
+                    android:textSize="21sp"/>
+
+                <TextView
+                    android:id="@+id/eggtstiproc2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/poppinsregular"
+                    android:text="@string/eggtstProc2"
+                    android:textColor="#000000"
+                    android:textSize="14sp"/>
+
+                <Button
+                    android:id="@+id/eggtstStart"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/poppins_semibold_italic"
+                    android:background="@drawable/attenbg"
+                    android:text="@string/letsdoit"
+                    app:layout_constraintTop_toBottomOf="@id/eggtstiproc2"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

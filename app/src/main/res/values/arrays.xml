@@ -1,0 +1,8 @@
+<resources>
+    <array name="rangeSlider1">
+        <item>1</item>
+        <item>10</item>
+    </array>
+    <string-array name="travel_modes">Foot, Bicycle, Motorcycle, Car, Bus, Truck, Airplane
+    </string-array>
+</resources>

@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/gamebg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Title Section -->
+        <TextView
+            android:id="@+id/recom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:text="@string/homerecom"
+            android:textColor="@color/grayG"
+            android:textSize="22sp"
+            android:fontFamily="@font/figtreebold"
+            android:textStyle="bold" />
+
+        <!-- Horizontal Scrollable Food List -->
+        <!-- TabLayout -->
+        <!-- ViewPager2 (Use ViewPager2 instead of ViewPager) -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
+            android:background="@drawable/btnlogin"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/foodhome"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                app:tabIndicatorColor="@color/Brown"
+                app:tabSelectedTextColor="@color/Green"
+                app:tabTextColor="@color/NudeGreen">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bfast" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lunch" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dinner" />
+
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/homefood"
+                android:layout_width="match_parent"
+                android:layout_height="380dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/foodhome"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!-- MOVE GREEN -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"
+            android:layout_marginBottom="5sp"
+            android:text="@string/mgreen"
+            android:textColor="@color/grayG"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/figtreebold"
+            android:paddingTop="1dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15sp"
+            android:text="@string/movedesc"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/figtree"/>
+
+        <LinearLayout
+            android:id="@+id/info_cards_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="6dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btnTrackTrip">
+
+            <!-- First Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="8dp"
+                android:layout_height="250dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bus1"
+                        android:alpha="10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/figtreebold"
+                            android:text="@string/did_you_know"
+                            android:textColor="@color/mintgreen"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/businfo"
+                            android:textColor="@color/mintgreen"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/buss"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingTop="10dp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Second Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="8dp"
+                android:layout_height="250dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/walking"
+                        android:alpha="10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/did_you_know"
+                            android:textColor="@color/mintgreen"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/figtreebold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/walkinfo"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/mintgreen"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/walk"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingTop="10dp"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Third Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="8dp"
+                android:layout_height="250dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/cyclings"
+                        android:alpha="10" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/did_you_know"
+                            android:textColor="@color/mintgreen"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/figtree"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/bikeinfo"
+                            android:textColor="@color/mintgreen"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/figtree"/>
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:src="@drawable/cycling"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingTop="10dp"
+                            android:fontFamily="@font/figtree"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp"
+            android:layout_marginBottom="10sp"
+            android:text="@string/explore"
+            android:textColor="@color/grayG"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/figtreebold"
+            android:paddingTop="1dp" />
+
+
+        <!-- Horizontal Activities -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutSphere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/jar3"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:onClick="onLinearLayoutClick">
+                </LinearLayout>
+                <!-- Background 2 -->
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutIce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/ice3"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:onClick="onLinearLayoutClick">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutWeather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:background="@drawable/weather3"
+                    android:padding="8dp"
+                    android:onClick="onLinearLayoutClick">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutExp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/exp3"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:onClick="onLinearLayoutClick">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutJar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rain3"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:onClick="onLinearLayoutClick">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutBarrier"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/flood3"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:onClick="onLinearLayoutClick">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutEnvironment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="@drawable/env3"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    android:onClick="onLinearLayoutClick">
+                </LinearLayout>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="13sp"
+            android:text="@string/entrep"
+            android:textColor="@color/grayG"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/figtreebold"
+            android:paddingTop="1dp" />
+
+        <!-- Enterprises Section -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="90sp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- First Rectangle -->
+                <LinearLayout
+                    android:id="@+id/masugidEntR"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@drawable/masugid_home"
+                    android:onClick="onRectangleClick">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/MasugidIcon"
+                        android:src="@drawable/masugid_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/MasugidEnt"
+                        android:fontFamily="@font/publicsans_bold"
+                        android:textColor="#F9FFF1"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/waniEntR"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/wani_home"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:onClick="onRectangleClick">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/WaniEnt"
+                        android:src="@drawable/wani_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/Wani"
+                        android:fontFamily="@font/publicsans_bold"
+                        android:textColor="#F9FFF1"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/playmakerEntR"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/playmaker_home"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:onClick="onRectangleClick">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:contentDescription="@string/playmakerEnt"
+                        android:src="@drawable/playm_circle" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/playmtitle"
+                        android:fontFamily="@font/publicsans_bold"
+                        android:textColor="#F9FFF1"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Add more rectangles as needed -->
+            </LinearLayout>
+        </HorizontalScrollView>
+    </LinearLayout>
+</ScrollView>

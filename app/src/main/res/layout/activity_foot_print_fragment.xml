@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAF4E2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Greeting -->
+        <TextView
+            android:id="@+id/helloText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello, User"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="4dp"/>
+
+        <!-- Daily emission summary -->
+        <TextView
+            android:id="@+id/emissionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You have emitted 120 kg CO2 this day"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Top row: Emitted CO2 and Reduce CO2 boxes -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <!-- Emitted CO2 box -->
+            <LinearLayout
+                android:id="@+id/emittedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center"
+                android:background="#CDECC3"
+                android:layout_marginEnd="8dp">
+                <TextView
+                    android:id="@+id/emittedLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Emitted CO2"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"/>
+                <TextView
+                    android:id="@+id/emittedValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Reduce CO2 box -->
+            <LinearLayout
+                android:id="@+id/reduceBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:gravity="center"
+                android:background="#CDECC3"
+                android:layout_marginStart="8dp">
+                <TextView
+                    android:id="@+id/reduceLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reduce CO2"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"/>
+                <TextView
+                    android:id="@+id/reduceValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <!-- Gauge: Half-donut PieChart with emoji at the center -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp">
+
+            <!-- PieChart -->
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <!-- Emoji (Centered inside PieChart) -->
+            <ImageView
+                android:id="@+id/emotionImage"
+                android:layout_width="211dp"
+                android:layout_height="207dp"
+                android:layout_gravity="center"
+                android:src="@drawable/happy_face" />
+        </FrameLayout>
+
+
+
+        <!-- Bottom row: Food and Transportation horizontal bars (kept as is) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:weightSum="2">
+            <!-- Food bar -->
+            <LinearLayout
+                android:id="@+id/foodBarContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/foodLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Food"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"/>
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#CCC"
+                    android:gravity="left">
+                    <View
+                        android:id="@+id/foodBarFill"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_green_dark"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/foodValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 CO2"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+
+            <!-- Transportation bar -->
+            <LinearLayout
+                android:id="@+id/transportBarContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/transportLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transportation"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black"/>
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#CCC"
+                    android:gravity="left">
+                    <View
+                        android:id="@+id/transportBarFill"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/holo_green_dark"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/transportValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 CO2"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginTop="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Analysis Header -->
+        <TextView
+            android:id="@+id/analysisHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Analysis"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+
+        <!-- RadioGroup for Week/Month Toggle -->
+        <RadioGroup
+            android:id="@+id/radioGroupPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+            <RadioButton
+                android:id="@+id/radioWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Week"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/radioMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Month"
+                android:layout_marginStart="16dp"/>
+        </RadioGroup>
+
+        <!-- BarChart -->
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp"/>
+
+        <!-- "No data" placeholder -->
+        <TextView
+            android:id="@+id/noDataText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No data available"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"/>
+
+        <!-- Details Section -->
+        <TextView
+            android:id="@+id/detailsHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Details"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="16dp"/>
+        <TextView
+            android:id="@+id/detailsDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select a bar to view details..."
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+</ScrollView>

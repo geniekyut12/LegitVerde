@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp"
+    android:background="@drawable/blurbg1">
+
+    <LinearLayout
+        android:id="@+id/lesson1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welldone"
+            android:textSize="30sp"
+            android:textColor="@color/entsoc"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppinsregular"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:background="@drawable/regbg"
+            android:text="@string/droplesson"
+            android:textSize="18sp"
+            android:textColor="@color/Brown"
+            android:fontFamily="@font/poppinsregular"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/restartButton"
+            android:layout_width="130dp"
+            android:layout_height="54dp"
+            android:background="@drawable/btn1"
+            android:padding="10dp"
+            android:text="@string/reset"
+            android:textColor="@color/grayG"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/Drag_DoneButton"
+            android:layout_width="130dp"
+            android:layout_height="54dp"
+            android:layout_marginStart="50dp"
+            android:text="@string/back"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:background="@drawable/btnatten1"
+            android:textColor="@color/grayG"/>
+    </LinearLayout>
+
+</LinearLayout>

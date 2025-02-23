@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rewbg"
+    android:padding="16dp"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <!-- Celebration Header -->
+        <LinearLayout
+            android:id="@+id/rewheader1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="50dp">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/congrats" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="@string/rewann"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- QR CODE -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/playm10per"
+                android:layout_width="450dp"
+                android:layout_height="450dp"
+                android:src="@drawable/wani5per"
+                android:layout_gravity="center"/>
+
+            <!-- Overlapping LinearLayout -->
+            <LinearLayout
+                android:id="@+id/qr_wani1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="28dp">
+
+                <ImageView
+                    android:id="@+id/qr_wanirew10"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/qrsample"/>
+
+                <TextView
+                    android:id="@+id/waniexp1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:fontFamily="@font/poppinsregular"
+                    android:textColor="@color/YGreen"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Bottom Content -->
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:text="@string/enjoy"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btn_wani5per"
+                android:layout_width="182dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/Green"
+                android:text="@string/claim"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
