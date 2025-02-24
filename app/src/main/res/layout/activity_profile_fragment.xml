@@ -5,20 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/profbg">
+    android:background="@drawable/profbg"
+    tools:context=".ProfileFragment">
+
 
     <!-- Profile Image -->
     <ImageView
         android:id="@+id/profileImg"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/user"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/profileimg"
         android:background="@drawable/circle_background"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Name -->
     <TextView
@@ -29,23 +30,24 @@
         android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/profileImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Badges Card -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/profileopt"
+        android:id="@+id/acheive"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
         android:background="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/titleName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="60dp"
-        android:layout_marginHorizontal="20dp">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +55,138 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- List Items -->
+            <!-- Top row: "Badges" on the left, "View all" on the right -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Badges"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black" />
+
+                <!-- Empty view to push "View all" to the right -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/tvViewAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View all  >"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/black" />
+            </LinearLayout>
+
+            <!-- Horizontal row for badges -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <!-- Badge 1 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/badgeg"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Eco Rookie"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!-- Badge 2 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/bagdeb" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Eco Protector"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!-- Badge 3 -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/badgebb" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Eco Leader"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:gravity="center" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Profile Options Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profileopt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        android:background="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@id/acheive"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Edit Profile -->
             <LinearLayout
                 android:id="@+id/editProfile"
                 android:layout_width="match_parent"
@@ -77,13 +210,14 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
+            <!-- Privacy & Terms -->
             <LinearLayout
+                android:id="@+id/termsandcondition"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
                 android:clickable="true"
@@ -108,8 +242,9 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@android:color/darker_gray"/>
+                android:background="@android:color/darker_gray" />
 
+            <!-- Logout -->
             <LinearLayout
                 android:id="@+id/btnlogout"
                 android:layout_width="match_parent"
@@ -135,44 +270,5 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/acheive"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="4dp"
-        android:background="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/titleName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="60dp"
-        android:layout_marginHorizontal="20dp">
 
-    </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="56dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:orientation="horizontal"
-        android:paddingVertical="10dp"
-        app:layout_constraintTop_toBottomOf="@id/profileopt"
-        tools:layout_editor_absoluteX="17dp">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/about_logo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/listofproj"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
-

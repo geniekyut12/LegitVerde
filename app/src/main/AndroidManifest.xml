@@ -11,9 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
@@ -31,16 +29,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Firstpage"
         tools:targetApi="34">
-        <service android:name=".TrackingService"/>
+        <activity
+            android:name=".BadgeFragment"
+            android:exported="false" />
+
+        <service android:name=".TrackingService" />
+        <service android:name=".TrackingService" />
 
         <activity
             android:name=".Winner"
             android:exported="false" />
         <activity
             android:name=".BattleEcoActivity"
+            android:configChanges="orientation|screenSize"
             android:exported="false"
-            android:screenOrientation="landscape"
-            android:configChanges="orientation|screenSize"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".GOver"
             android:exported="false" />
@@ -62,9 +65,6 @@
         <activity
             android:name=".FragmentRewardM"
             android:exported="false" />
-
-        <service android:name=".TrackingService" />
-
         <activity
             android:name=".eggtoast"
             android:exported="false" />

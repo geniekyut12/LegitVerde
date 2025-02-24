@@ -17,8 +17,11 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class InProgressFragment extends Fragment {
 
@@ -34,11 +37,10 @@ public class InProgressFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout
         View view = inflater.inflate(R.layout.fragment_in_progress, container, false);
 
         btnStartChallenge3 = view.findViewById(R.id.btnStartChallenge3);
-        txtUserPoints = view.findViewById(R.id.txtPoints); // Ensure you have a TextView in your XML
+        txtUserPoints = view.findViewById(R.id.txtPoints); // Ensure this TextView exists in XML
 
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -67,11 +69,11 @@ public class InProgressFragment extends Fragment {
                             if (username != null) {
                                 userRef = db.collection("users").document(username);
                                 getUserPoints();
-                                checkChallengeStatus();
+                                listenForChallengeStatus(); // Listen for real-time updates
                             } else {
                                 Toast.makeText(getContext(), "Username not found!", Toast.LENGTH_SHORT).show();
                             }
-                            break; // Exit loop after finding the first match
+                            break; // Exit loop after finding first match
                         }
                     })
                     .addOnFailureListener(e -> Log.e("Firestore", "Error fetching username", e));
@@ -93,17 +95,24 @@ public class InProgressFragment extends Fragment {
         }).addOnFailureListener(e -> Log.e("Firestore", "Error fetching points", e));
     }
 
-    private void checkChallengeStatus() {
+    private void listenForChallengeStatus() {
         if (userRef == null) return;
 
-        userRef.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists() && documentSnapshot.contains("chall3_completed")) {
-                boolean isCompleted = documentSnapshot.getBoolean("chall3_completed");
+        userRef.addSnapshotListener((documentSnapshot, e) -> {
+            if (e != null) {
+                Log.e("Firestore", "Error checking challenge status", e);
+                return;
+            }
+
+            if (documentSnapshot != null && documentSnapshot.exists()) {
+                boolean isCompleted = documentSnapshot.getBoolean("chall3_completed") != null &&
+                        documentSnapshot.getBoolean("chall3_completed");
+
                 if (isCompleted) {
                     btnStartChallenge3.setText("Done");
                     btnStartChallenge3.setEnabled(false);
                 }
             }
-        }).addOnFailureListener(e -> Log.e("Firestore", "Error checking challenge status", e));
+        });
     }
 }

@@ -14,6 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.mlkit.vision.common.InputImage;
 import com.google.mlkit.vision.label.ImageLabel;
 import com.google.mlkit.vision.label.ImageLabeling;
@@ -31,6 +35,10 @@ public class Chall3 extends AppCompatActivity {
     private Button captureButton;
     private Bitmap capturedImage;
 
+    private FirebaseFirestore db;
+    private FirebaseAuth auth;
+    private String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +47,9 @@ public class Chall3 extends AppCompatActivity {
         cameraIcon = findViewById(R.id.cameraIcon);
         checkMark = findViewById(R.id.checkMark);
         captureButton = findViewById(R.id.captureButton);
+
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         checkChallengeStatus(); // Check if the challenge is already done for today
 
@@ -102,7 +113,8 @@ public class Chall3 extends AppCompatActivity {
 
     private void markChallengeAsDone() {
         checkMark.setVisibility(View.VISIBLE);
-        saveChallengeCompletion();
+        saveChallengeCompletion();  // Save locally
+        updateChallengeInFirestore(); // Save in Firestore
         Toast.makeText(this, "Challenge completed!", Toast.LENGTH_SHORT).show();
     }
 
@@ -138,5 +150,34 @@ public class Chall3 extends AppCompatActivity {
         } else {
             checkMark.setVisibility(View.GONE);
         }
+    }
+
+    private void updateChallengeInFirestore() {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user == null) {
+            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String userEmail = user.getEmail();
+        db.collection("users")
+                .whereEqualTo("email", userEmail)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        username = document.getString("username");
+                        if (username != null) {
+                            db.collection("users").document(username)
+                                    .update("chall3_completed", true)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Toast.makeText(this, "Challenge completion updated!", Toast.LENGTH_SHORT).show();
+                                        finish(); // Close activity
+                                    })
+                                    .addOnFailureListener(e -> Toast.makeText(this, "Error updating challenge.", Toast.LENGTH_SHORT).show());
+                        }
+                        break; // Exit loop after first match
+                    }
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Error fetching username", Toast.LENGTH_SHORT).show());
     }
 }
