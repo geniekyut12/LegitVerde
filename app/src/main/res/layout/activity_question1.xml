@@ -65,7 +65,7 @@
                 android:id="@+id/FetchFName"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
-                android:fontFamily="@font/poppins_semibold_italic"
+                android:fontFamily="@font/poppins_italic"
                 android:gravity="start"
                 android:singleLine="true"
                 android:text="@string/Firstname"
@@ -91,7 +91,7 @@
                 android:text="@string/Username"
                 android:textColor="@color/Brown"
                 android:textSize="20sp"
-                android:fontFamily="@font/poppins_semibold_italic"/>
+                android:fontFamily="@font/poppins_italic"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -131,7 +131,7 @@
 
         <RadioGroup
             android:id="@+id/radioGroupQ1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_horizontal">
@@ -258,28 +258,29 @@
             android:gravity="center"
             android:text="@string/BMI"
             android:textColor="@color/Brown"
-            android:textSize="21sp"
-            android:fontFamily="@font/poppinsmedium"/>
-
-        <TextView
-            android:id="@+id/bmistatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:gravity="center"
-            android:fontFamily="@font/poppins_semibold_italic"
-            android:text="@string/BMIStatus"
-            android:textColor="@color/Brown"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/BMI"/>
+            android:textSize="19sp"
+            android:fontFamily="@font/poppins_semibold_italic"/>
 
         <ImageView
             android:id="@+id/BMIimage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/defweight"
-            app:layout_constraintTop_toBottomOf="@id/bmistatus"/>
+            app:layout_constraintTop_toBottomOf="@id/BMI"/>
+
+
+        <TextView
+            android:id="@+id/bmistatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="@string/BMIStatus"
+            android:textColor="@color/Brown"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/BMIimage"/>
 
     </LinearLayout>
 

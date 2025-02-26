@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/aboutCverdeRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8f1ec"
+    tools:context=".AboutCVerde">
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cVerdeFooter">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Header area with a drawable background -->
+            <LinearLayout
+                android:id="@+id/cVerdeHeader"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/cverdeabout"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/back"
+                android:layout_marginTop="50sp"
+                android:layout_marginLeft="10sp"
+                android:padding="4dp"
+                app:tint="@color/white"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+            <!-- Logo in the center, overlapping the header -->
+
+            <ImageView
+                android:id="@+id/cVerdeLogo"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="-75dp"
+                android:src="@drawable/logoabout"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Title text: "About C-Verde" -->
+            <TextView
+                android:id="@+id/cVerdeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="About C-Verde"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppinsregular"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeLogo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Main description below the title -->
+            <TextView
+                android:id="@+id/cVerdeDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/poppinsregular"
+                android:text="@string/cverdetext"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:hyphenationFrequency="full"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="4dp"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeDesc"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Team picture placed under the main description -->
+            <ImageView
+                android:id="@+id/cVerdeTeamPic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/firstpic"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Secondary description below the team picture -->
+            <TextView
+                android:id="@+id/cVerdeDesc2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/poppinsregular"
+                android:text="@string/cverdetexts"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:hyphenationFrequency="full"
+                android:justificationMode="inter_word"
+                android:lineSpacingExtra="4dp"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeTeamPic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <ImageView
+                android:id="@+id/cVerdeTeamPic2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/secondpic"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeDesc2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <!-- "Inquiries:" label -->
+            <TextView
+                android:id="@+id/cVerdeInquiries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="16dp"
+                android:text="Inquiries:"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins_bold"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeTeamPic2"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Instagram icon -->
+            <ImageView
+                android:id="@+id/cVerdeIg"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ig_icon"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeInquiries"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Instagram handle text -->
+            <TextView
+                android:id="@+id/cVerdeIgText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/cverdes"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppinsregular"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeInquiries"
+                app:layout_constraintStart_toEndOf="@id/cVerdeIg" />
+
+            <!-- Gmail icon -->
+            <ImageView
+                android:id="@+id/cVerdeGmail"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/gmail_icon"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeIgText"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Gmail address text -->
+            <TextView
+                android:id="@+id/cVerdeMailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:text="cverdeOHS@gmail.com"
+                android:textSize="18sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppinsregular"
+                app:layout_constraintTop_toBottomOf="@id/cVerdeIgText"
+                app:layout_constraintStart_toEndOf="@id/cVerdeGmail" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Footer bar at the bottom -->
+    <LinearLayout
+        android:id="@+id/cVerdeFooter"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

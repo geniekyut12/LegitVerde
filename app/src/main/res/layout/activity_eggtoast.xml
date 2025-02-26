@@ -141,17 +141,6 @@
                     android:textColor="#000000"
                     android:textSize="14sp"/>
 
-                <Button
-                    android:id="@+id/eggtstStart"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
-                    android:layout_marginBottom="80dp"
-                    android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/poppins_semibold_italic"
-                    android:background="@drawable/attenbg"
-                    android:text="@string/letsdoit"
-                    app:layout_constraintTop_toBottomOf="@id/eggtstiproc2"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

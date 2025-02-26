@@ -82,8 +82,8 @@ public class GameFragment extends Fragment {
         view.findViewById(R.id.gameB).setOnClickListener(v -> openActivity(Game.class));
         view.findViewById(R.id.reward).setOnClickListener(v -> openActivity(FragmentRewardM.class));
         view.findViewById(R.id.feature2B).setOnClickListener(v -> openActivity(LeaderBoards.class));
+        view.findViewById(R.id.vid1B).setOnClickListener(v -> openActivity(Videos.class));
         view.findViewById(R.id.quizB).setOnClickListener(v -> replaceFragment(new QuizFrag()));
-        view.findViewById(R.id.feature1B).setOnClickListener(v -> replaceFragment(new VideoFrag()));
 
         // Mark attendance button
         btnMarkAttendance.setOnClickListener(this::markAttendance);

@@ -47,7 +47,7 @@
             android:id="@+id/questionText2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="55dp"
             android:fontFamily="@font/poppinsregular"
             android:gravity="center"
             android:text="@string/question5"

@@ -171,16 +171,16 @@ public class Question1 extends AppCompatActivity {
             int imageResId;
             if (bmi < 18.5) {
                 imageResId = R.drawable.underw;
-                status = "Underweight";
+                status = "You're UNDERWEIGHT, which is below the healthy range. A balanced diet can help you reach a healthier weight!";
             } else if (bmi < 24.9) {
                 imageResId = R.drawable.normal_weight;
-                status = "Normal weight";
+                status = "You're NORMAL WEIGHT, indicating a healthy weight. Keep up the good work!";
             } else if (bmi < 29.9) {
                 imageResId = R.drawable.overweight;
-                status = "Overweight";
+                status = "You're OVERWEIGHT,  slightly above the healthy range. Small lifestyle changes can help—you're on the right track!";
             } else {
                 imageResId = R.drawable.obese;
-                status = "Obese";
+                status = "You're OBESE, above the healthy range. Healthy habits and support can make a difference—you've got this!";
             }
 
             bmiStatusImage.setImageResource(imageResId);

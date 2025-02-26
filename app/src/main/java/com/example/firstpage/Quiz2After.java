@@ -1,5 +1,6 @@
 package com.example.firstpage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ public class Quiz2After extends AppCompatActivity {
         // Set click listener for the button
         btnq2done.setOnClickListener(v -> {
             if (validateBeforeRedirect()) {
-                navigateToQuizFragment(score); // Pass score to the next fragment
+                navigateToNavbar(score); // Pass score to the next fragment
             } else {
                 Toast.makeText(Quiz2After.this, "Validation failed!", Toast.LENGTH_SHORT).show();
             }
@@ -91,15 +92,11 @@ public class Quiz2After extends AppCompatActivity {
     }
 
     // Replace current fragment with QuizFrag and pass score and completion flag
-    private void navigateToQuizFragment(int score) {
-        QuizFrag quizFrag = new QuizFrag(); // Create an instance of the target fragment
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isQuizDone", true); // Pass flag indicating the quiz is done
-        bundle.putInt("score", score); // Optionally pass score for other uses in QuizFrag
-        quizFrag.setArguments(bundle); // Set arguments for the fragment
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(android.R.id.content, quizFrag); // Replace the current fragment with QuizFrag
-        transaction.addToBackStack(null); // Optional: Add to back stack to allow back navigation
-        transaction.commit();
+    private void navigateToNavbar(int score) {
+        Intent intent = new Intent(this, navbar.class);
+        intent.putExtra("isQuizDone", true); // Pass flag indicating the quiz is done
+        intent.putExtra("score", score); // Optionally pass score for other uses
+        startActivity(intent);
+        finish(); // Close the current activity
     }
 }

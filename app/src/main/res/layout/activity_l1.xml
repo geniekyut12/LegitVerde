@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".L1"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Top Section (Green Background) -->
+            <LinearLayout
+                android:id="@+id/eggtoastM"
+                android:layout_width="420sp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:background="@color/quizgreen"
+                android:elevation="4dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/backButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_gravity="start"
+                    android:background="@android:color/transparent"
+                    android:padding="4dp"
+                    android:src="@drawable/back"
+                    app:tint="@color/white" />
+                <TextView
+                    android:id="@+id/backText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/monggo"
+                    android:textColor="@color/white"
+                    android:textSize="23sp"
+                    android:layout_marginTop="-30dp"
+                    android:layout_marginStart="17sp"
+                    android:gravity="center" />
+
+                <!-- Timer/Calories row (pushed to the right) -->
+                <ImageView
+                    android:id="@+id/eggtst3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/l1" />
+
+                <LinearLayout
+                    android:id="@+id/timerCaloriesLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <!-- Spacer pushes items to the right -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <!-- Right side: Metabolism icon and text -->
+                    <ImageView
+                        android:layout_width="29dp"
+                        android:layout_height="29dp"
+                        android:src="@drawable/metabolism" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="@string/monggos"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/black" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Recipe Content Section (Below the Green Top) -->
+            <LinearLayout
+                android:id="@+id/recipeContentLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/eggtoastM"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <!-- Main Title -->
+                <TextView
+                    android:id="@+id/champorado_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-20dp"
+                    android:text="@string/monggoss"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <!-- Why Eat This? Heading -->
+                <TextView
+                    android:id="@+id/why_eat_this_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:text="Why Eat This?"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <!-- Why Eat This? Content -->
+                <TextView
+                    android:id="@+id/why_eat_this_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/monggosss"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black" />
+
+                <!-- Ingredients Heading -->
+                <TextView
+                    android:id="@+id/ingredients_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Ingredients:"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <!-- Ingredients List -->
+                <TextView
+                    android:id="@+id/ingredients_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/monggossss"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black" />
+
+                <!-- Step-by-Step Heading -->
+                <TextView
+                    android:id="@+id/step_by_step_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Step-by-Step Guide:"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <!-- Step-by-Step Instructions -->
+                <TextView
+                    android:id="@+id/step_by_step_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/monggosssss"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black" />
+
+                <!-- Calories Heading -->
+                <TextView
+                    android:id="@+id/calories_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Calories:"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/black" />
+
+                <!-- Calories List -->
+                <TextView
+                    android:id="@+id/calories_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/monggossssss"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/black" />
+
+            </LinearLayout>
+
+            <!-- Button (Below the Recipe Content) -->
+            <Button
+                android:id="@+id/monggoStart"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-20sp"
+                android:layout_marginBottom="80dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/attenbg"
+                android:fontFamily="@font/poppins_semibold_italic"
+                android:text="@string/letsdoit"
+                app:layout_constraintTop_toBottomOf="@+id/recipeContentLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

@@ -47,7 +47,7 @@
             android:background="@drawable/quizlayout1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/qz1n2">
+            app:layout_constraintTop_toBottomOf="@id/qz1n3">
 
             <LinearLayout
                 android:id="@+id/qz1l3"

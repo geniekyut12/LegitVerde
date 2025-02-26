@@ -79,6 +79,7 @@ public class DragGame extends AppCompatActivity {
         addItem("Chicken", R.drawable.chicken, "low");
         addItem("Rice", R.drawable.rice, "high");
         addItem("Vegetables", R.drawable.vegetables, "low");
+
     }
 
     private void addItem(String name, int imageRes, String category) {

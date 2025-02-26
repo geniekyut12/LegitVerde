@@ -1,10 +1,9 @@
 package com.example.firstpage;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
@@ -12,52 +11,75 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Collections;
 
 public class FragmentRewardM extends AppCompatActivity {
 
     private Button redeemButton1, redeemButton2, redeemButton3, redeemButton4;
     private TextView TotalPoints;
-    private ImageView rankImageView;  // Added for rank badge
-    private SharedPreferences sharedPreferences;
+    private ImageView rankImageView, backButton;  // Rank badge ImageView
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private int userTotalPoints = 0;
 
-    // Required points to redeem each reward
-    private final int MASUG5PER_POINTS = 0;
-    private final int MASUG10PER_POINTS = 0;
-    private final int WANI5PER_POINTS = 0;
-    private final int PLAYM5PER_POINTS = 0;
+    // Computed component points from each collection.
+    private int gamePoints = 0;
+    private int quizPoints = 0;
+    private int quiz2Points = 0;
+    private int userTotalPoints = 0; // Sum of all three
+
+    private String currentUsername;
+
+    // Map to hold reward claimed statuses from Firestore.
+    private Map<String, Boolean> rewardStatusMap = new HashMap<>();
+
+    // Required points to redeem each reward.
+    private final int MASUG5PER_POINTS = 12352;
+    private final int MASUG10PER_POINTS = 150;
+    private final int WANI5PER_POINTS = 1200;
+    private final int PLAYM5PER_POINTS = 1100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_reward_m);
 
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("RewardPrefs", MODE_PRIVATE);
+        LinearLayout headerLayout = findViewById(R.id.btn_backReward);
+        ImageView backButton = findViewById(R.id.backrew);
 
-        // Initialize UI elements
+        // Set click listener for back navigation
+        backButton.setOnClickListener(v -> finish()); // Closes the current activity
+
+        // Set click listener for the whole layout (if needed)
+        headerLayout.setOnClickListener(v -> {
+            // Perform additional actions if required
+        });
+
+        // Initialize UI elements.
         redeemButton1 = findViewById(R.id.claim_masug5per);
         redeemButton2 = findViewById(R.id.claim_masug10per);
         redeemButton3 = findViewById(R.id.claim_wani5per);
         redeemButton4 = findViewById(R.id.claim_playm5per);
         TotalPoints = findViewById(R.id.pointsinR);
-        rankImageView = findViewById(R.id.rewRank);  // Added for rank badge
+        rankImageView = findViewById(R.id.rewRank);
 
-        // Initialize Firebase
+        // Initialize Firebase.
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // Fetch and update points
+        // Fetch points from the three collections and update reward status.
         fetchAndUpdatePoints();
 
-        // Set click listeners
+        // Set click listeners for reward redemption.
         redeemButton1.setOnClickListener(v -> redeemReward("MASUG5PER_CLAIMED", MASUG5PER_POINTS, redeemButton1));
         redeemButton2.setOnClickListener(v -> redeemReward("MASUG10PER_CLAIMED", MASUG10PER_POINTS, redeemButton2));
         redeemButton3.setOnClickListener(v -> redeemReward("WANI5PER_CLAIMED", WANI5PER_POINTS, redeemButton3));
@@ -70,46 +92,60 @@ public class FragmentRewardM extends AppCompatActivity {
             return;
         }
 
-        String username = mAuth.getCurrentUser().getDisplayName();
-        if (username == null || username.isEmpty()) {
-            username = mAuth.getCurrentUser().getUid(); // Fallback to UID if DisplayName is empty
+        // Use displayName or UID as username.
+        currentUsername = mAuth.getCurrentUser().getDisplayName();
+        if (currentUsername == null || currentUsername.isEmpty()) {
+            currentUsername = mAuth.getCurrentUser().getUid();
         }
 
-        DocumentReference gameRef = db.collection("Games").document(username);
-        DocumentReference quizRef = db.collection("Quiz").document(username);
-        DocumentReference quizRef2 = db.collection("Quiz2").document(username);
+        // Get document references for each collection.
+        DocumentReference gameRef = db.collection("Games").document(currentUsername);
+        DocumentReference quizRef = db.collection("Quiz").document(currentUsername);
+        DocumentReference quizRef2 = db.collection("Quiz2").document(currentUsername);
 
-        // Fetch all points in parallel
+        // Fetch points from the three sources sequentially.
         gameRef.get().addOnSuccessListener(gameSnapshot -> {
-            int gamePoints = gameSnapshot.exists() && gameSnapshot.contains("highScore") ?
-                    gameSnapshot.getLong("highScore").intValue() : 0;
-
+            gamePoints = (gameSnapshot.exists() && gameSnapshot.contains("highScore"))
+                    ? gameSnapshot.getLong("highScore").intValue() : 0;
             quizRef.get().addOnSuccessListener(quizSnapshot -> {
-                int quizPoints = quizSnapshot.exists() && quizSnapshot.contains("score") ?
-                        quizSnapshot.getLong("score").intValue() : 0;
-
+                quizPoints = (quizSnapshot.exists() && quizSnapshot.contains("score"))
+                        ? quizSnapshot.getLong("score").intValue() : 0;
                 quizRef2.get().addOnSuccessListener(quiz2Snapshot -> {
-                    int quiz2Points = quiz2Snapshot.exists() && quiz2Snapshot.contains("score") ?
-                            quiz2Snapshot.getLong("score").intValue() : 0;
+                    quiz2Points = (quiz2Snapshot.exists() && quiz2Snapshot.contains("score"))
+                            ? quiz2Snapshot.getLong("score").intValue() : 0;
 
-                    // Compute total points
+                    // Compute total points.
                     userTotalPoints = gamePoints + quizPoints + quiz2Points;
-
-                    // Update UI
                     TotalPoints.setText(String.format(Locale.getDefault(), "Total Points: %d", userTotalPoints));
 
-                    // Update button text based on eligibility
+                    // Update UI buttons and rank image.
                     updateButtonStatus();
+                    updateRankImage();
 
-                    // Update rank badge
-                    updateRankImage();  // Added for rank badge
+                    // Fetch reward claimed status.
+                    fetchRewardStatus();
 
                 }).addOnFailureListener(e -> showError("Error fetching Quiz2 points", e));
             }).addOnFailureListener(e -> showError("Error fetching Quiz points", e));
         }).addOnFailureListener(e -> showError("Error fetching Game points", e));
     }
 
-    // Added method for updating rank badge
+    private void fetchRewardStatus() {
+        DocumentReference rewardsRef = db.collection("Rewards").document(currentUsername);
+        rewardsRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists() && documentSnapshot.getData() != null) {
+                Map<String, Object> data = documentSnapshot.getData();
+                for (Map.Entry<String, Object> entry : data.entrySet()) {
+                    if (entry.getValue() instanceof Boolean) {
+                        rewardStatusMap.put(entry.getKey(), (Boolean) entry.getValue());
+                    }
+                }
+            }
+            updateButtonStatus(); // Refresh button text based on reward status.
+        }).addOnFailureListener(e -> showError("Error fetching reward status", e));
+    }
+
+    // Update rank badge based on available total points.
     private void updateRankImage() {
         if (userTotalPoints >= 25) {
             rankImageView.setImageResource(R.drawable.badgey);
@@ -130,7 +166,8 @@ public class FragmentRewardM extends AppCompatActivity {
     }
 
     private void updateButtonText(Button button, String rewardKey, int requiredPoints) {
-        if (sharedPreferences.getBoolean(rewardKey, false)) {
+        boolean claimed = rewardStatusMap.containsKey(rewardKey) ? rewardStatusMap.get(rewardKey) : false;
+        if (claimed) {
             button.setText("Reward Claimed");
         } else if (userTotalPoints >= requiredPoints) {
             button.setText("Claim Reward");
@@ -140,30 +177,67 @@ public class FragmentRewardM extends AppCompatActivity {
     }
 
     private void redeemReward(String rewardKey, int requiredPoints, Button button) {
-        if (sharedPreferences.getBoolean(rewardKey, false)) {
+        boolean claimed = rewardStatusMap.containsKey(rewardKey) ? rewardStatusMap.get(rewardKey) : false;
+        if (claimed) {
             Toast.makeText(this, "Reward already claimed!", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (userTotalPoints >= requiredPoints) {
-            showRedeemDialog(rewardKey, button);
+            showRedeemDialog(rewardKey, requiredPoints, button);
         } else {
             Toast.makeText(this, "Insufficient Points to claim this reward!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void showRedeemDialog(String rewardKey, Button button) {
+    private void showRedeemDialog(String rewardKey, int requiredPoints, Button button) {
         FragmentManager fm = getSupportFragmentManager();
         RedeemDialog redeemDialog = new RedeemDialog();
         redeemDialog.show(fm, "redeem_dialog");
 
-        // Mark reward as claimed
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(rewardKey, true);
-        editor.apply();
+        // Mark the reward as claimed in Firestore.
+        DocumentReference rewardRef = db.collection("Rewards").document(currentUsername);
+        Map<String, Object> update = new HashMap<>();
+        update.put(rewardKey, true);
+        rewardRef.set(update, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> {
+                    rewardStatusMap.put(rewardKey, true);
+                    button.setText("Reward Claimed");
 
-        // Update button text
-        button.setText("Reward Claimed");
+                    // Subtract the required points proportionally from the three collections.
+                    int total = gamePoints + quizPoints + quiz2Points;
+                    if(total <= 0) {
+                        Toast.makeText(this, "Error: Total points is zero", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    float fractionGame = (float) gamePoints / total;
+                    float fractionQuiz = (float) quizPoints / total;
+                    float fractionQuiz2 = (float) quiz2Points / total;
+                    int deductGame = Math.round(fractionGame * requiredPoints);
+                    int deductQuiz = Math.round(fractionQuiz * requiredPoints);
+                    int deductQuiz2 = requiredPoints - deductGame - deductQuiz; // ensures the sum equals requiredPoints
+
+                    // Get document references for each collection.
+                    DocumentReference gameRef = db.collection("Games").document(currentUsername);
+                    DocumentReference quizRef = db.collection("Quiz").document(currentUsername);
+                    DocumentReference quizRef2 = db.collection("Quiz2").document(currentUsername);
+
+                    // Use set() with merge to update points even if the document doesn't exist.
+                    Tasks.whenAll(
+                            gameRef.set(Collections.singletonMap("highScore", FieldValue.increment(-deductGame)), SetOptions.merge()),
+                            quizRef.set(Collections.singletonMap("score", FieldValue.increment(-deductQuiz)), SetOptions.merge()),
+                            quizRef2.set(Collections.singletonMap("score", FieldValue.increment(-deductQuiz2)), SetOptions.merge())
+                    ).addOnSuccessListener(unused -> {
+                        // Update local values.
+                        gamePoints -= deductGame;
+                        quizPoints -= deductQuiz;
+                        quiz2Points -= deductQuiz2;
+                        userTotalPoints = gamePoints + quizPoints + quiz2Points;
+                        TotalPoints.setText(String.format(Locale.getDefault(), "Total Points: %d", userTotalPoints));
+                        updateButtonStatus();
+                        updateRankImage();
+                    }).addOnFailureListener(e -> showError("a", e));
+                })
+                .addOnFailureListener(e -> showError("Error updating reward status", e));
     }
 
     private void showError(String message, Exception e) {

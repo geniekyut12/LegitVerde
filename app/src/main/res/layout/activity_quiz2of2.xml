@@ -40,7 +40,7 @@
             android:id="@+id/qz1"
             android:layout_width="315dp"
             android:layout_height="550dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:layout_marginBottom="30dp"
             android:orientation="vertical"
             android:gravity="center"

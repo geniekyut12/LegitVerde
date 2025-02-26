@@ -318,7 +318,7 @@
             <!-- New Feature 1 (Bottom Left) -->
 
                 s<LinearLayout
-                    android:id="@+id/feature1B"
+                    android:id="@+id/vid1B"
                     android:layout_width="142dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="25dp"

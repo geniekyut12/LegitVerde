@@ -26,4 +26,12 @@
         <item name="android:textColor">@color/LBrown</item> <!-- Text color -->
     </style>
 
+
+    <!-- Full-screen theme for VehicleStatusActivity -->
+    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
 </resources>

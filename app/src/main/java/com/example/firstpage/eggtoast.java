@@ -20,11 +20,5 @@ public class eggtoast extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_eggtoast);
 
-        // Initialize and set up "Get Started" button
-        eggtstStart = findViewById(R.id.eggtstStart);
-        eggtstStart.setOnClickListener(v -> {
-            Intent intent = new Intent(eggtoast.this, Bfast1Fragment.class);
-            startActivity(intent);
-        });
     }
 }

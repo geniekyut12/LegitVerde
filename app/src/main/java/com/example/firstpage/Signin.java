@@ -37,10 +37,10 @@ public class Signin extends AppCompatActivity {
     private EditText txtEmail, LastPass;
     private Button Loginbtn, google_sign_in_btn, forgotPasswordButton;
     private ProgressBar progressBar;
-    private GoogleSignInOptions gso;
+
     private FirebaseAuth firebase;
     private FirebaseFirestore db;
-    private GoogleSignInClient gsc;
+
     private static final int RC_SIGN_IN = 20;
     private VideoView videoView;
 
@@ -74,7 +74,6 @@ public class Signin extends AppCompatActivity {
         LastPass = findViewById(R.id.LastPass);
         Loginbtn = findViewById(R.id.btnLogIn);
         progressBar = findViewById(R.id.progressBar);
-        google_sign_in_btn = findViewById(R.id.google_sign_in_btn);
         videoView = findViewById(R.id.videoViewBackground);
         forgotPasswordButton = findViewById(R.id.btn_forgot_password);
 
@@ -88,21 +87,14 @@ public class Signin extends AppCompatActivity {
         firebase = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        gsc = GoogleSignIn.getClient(Signin.this, gso);
 
-        google_sign_in_btn.setOnClickListener(v -> signIn());
+
+
         Loginbtn.setOnClickListener(v -> signUpUser());
         forgotPasswordButton.setOnClickListener(v -> resetPassword());
     }
 
-    private void signIn() {
-        Intent signInIntent = gsc.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

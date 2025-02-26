@@ -1,12 +1,10 @@
 package com.example.firstpage;
 
 import android.os.Bundle;
-
+import android.view.View;
+import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class Masugid_Ent extends AppCompatActivity {
 
@@ -16,5 +14,13 @@ public class Masugid_Ent extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_masugid_ent);
 
+        ImageView backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Close the current activity, returning to the previous one.
+                finish();
+            }
+        });
     }
 }
