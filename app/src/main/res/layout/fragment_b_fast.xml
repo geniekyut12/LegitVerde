@@ -2,11 +2,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:fillViewport="true">
 
     <LinearLayout
-        android:id="@+id/bFast"
+        android:id="@+id/BFast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -15,10 +15,10 @@
 
         <!-- Food Item 1 -->
         <LinearLayout
-            android:id="@+id/bfast1"
+            android:id="@+id/Bfast1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/eggtoast"
             android:clickable="true"
             android:elevation="4dp"
@@ -28,29 +28,29 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/timecal1"
+                android:id="@+id/eggtst"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="138dp"
+                android:layout_marginTop="170dp"
                 android:gravity="center"
+                android:fontFamily="@font/poppinsmedium"
                 android:text="@string/eggtoast"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textColor="@color/DGreen"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:id="@+id/timerCaloriesLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/timecal1">
+                app:layout_constraintTop_toBottomOf="@id/eggtst">
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/homes" />
 
                 <TextView
@@ -58,11 +58,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="@string/eggtstmins"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:textColor="@color/grayG"
+                    android:fontFamily="@font/poppinsregular"/>
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
                     android:layout_marginStart="16dp"
                     android:src="@drawable/metabolism" />
 
@@ -71,17 +73,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:text="@string/eggtstcal"
-                    android:textSize="13sp" />
+                    android:textColor="@color/grayG"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/poppinsregular"/>
             </LinearLayout>
         </LinearLayout>
 
         <!-- Food Item 2 -->
         <LinearLayout
-            android:id="@+id/bfast2"
+            android:id="@+id/Bfast2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
-            android:background="@drawable/eggtoast"
+            android:background="@drawable/oatmeal"
             android:clickable="true"
             android:elevation="4dp"
             android:focusable="true"
@@ -90,50 +94,120 @@
             android:padding="10dp">
 
             <TextView
-                android:id="@+id/timecal2"
+                android:id="@+id/pakbet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="138dp"
+                android:layout_marginTop="180dp"
                 android:gravity="center"
-                android:text="@string/eggtoast"
-                android:textColor="@android:color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:fontFamily="@font/poppinsmedium"
+                android:text="@string/oatmeal"
+                android:textColor="@color/DGreen"
+                android:textSize="16sp" />
 
             <LinearLayout
-                android:id="@+id/timerCaloriesLayout2"
+                android:id="@+id/timerCaloriesLayout6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/timecal1">
+                app:layout_constraintTop_toBottomOf="@id/pakbet">
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
                     android:src="@drawable/homes" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="5dp"
                     android:text="@string/eggtstmins"
-                    android:textSize="13sp" />
+                    android:textColor="@color/grayG"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/poppinsregular"/>
 
                 <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
                     android:layout_marginStart="16dp"
                     android:src="@drawable/metabolism" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:text="@string/eggtstcal"
-                    android:textSize="13sp" />
+                    android:layout_marginStart="7dp"
+                    android:text="@string/oatmeals1"
+                    android:textColor="@color/grayG"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/poppinsregular"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Food Item 2 -->
+        <LinearLayout
+            android:id="@+id/Bfast3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/kamote"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/kamote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="211dp"
+                android:gravity="center"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="@string/kamote"
+                android:textColor="@color/DGreen"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/timerCaloriesLayout7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/kamote">
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:src="@drawable/homes" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/eggtstmins"
+                    android:textColor="@color/grayG"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/poppinsregular"/>
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/metabolism" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:text="@string/kamotes"
+                    android:textColor="@color/grayG"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/poppinsregular"/>
             </LinearLayout>
         </LinearLayout>
 

@@ -11,21 +11,36 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.firstpage.BFast2;
+import com.example.firstpage.BFast3;
 import com.example.firstpage.R;
 import com.example.firstpage.eggtoast;
 
 public class BFastFragment extends Fragment {
 
-    private LinearLayout bfast1, bfast2;
+    private LinearLayout Bfast1, Bfast2, Bfast3;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_b_fast, container, false); // Inflate the layout
 
-        LinearLayout bfast1 = view.findViewById(R.id.bfast1);
-        bfast1.setOnClickListener(v -> {
+        LinearLayout Bfast1 = view.findViewById(R.id.Bfast1);
+        Bfast1.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), eggtoast.class);
+            startActivity(intent);
+        });
+
+        LinearLayout Bfast2 = view.findViewById(R.id.Bfast2);
+        Bfast2.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), BFast2.class);
+            startActivity(intent);
+        });
+
+        LinearLayout Bfast3 = view.findViewById(R.id.Bfast3);
+        Bfast3.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), BFast3.class);
             startActivity(intent);
         });
 

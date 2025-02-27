@@ -1,5 +1,6 @@
 package com.example.firstpage;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,13 +11,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ProgressBar;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 
 public class EditProfile extends AppCompatActivity {
     private EditText editFirstName, editLastName, editEmail, editUsername;
@@ -27,14 +31,17 @@ public class EditProfile extends AppCompatActivity {
     private FirebaseUser currentUser;
     private String username, firstName, lastName, email;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = auth.getCurrentUser();
+
 
         // Initialize UI elements
         editFirstName = findViewById(R.id.firstNameInput);
@@ -45,6 +52,7 @@ public class EditProfile extends AppCompatActivity {
         resetPasswordButton = findViewById(R.id.inputpass);
         progressBar = findViewById(R.id.progressBar); // Ensure this exists in XML
 
+
         // Check if user is logged in
         if (currentUser == null) {
             showToast("User not logged in");
@@ -52,12 +60,15 @@ public class EditProfile extends AppCompatActivity {
             return;
         }
 
+
         username = currentUser.getDisplayName(); // Get username from Firebase Auth
         fetchUserData(username);
+
 
         saveButton.setOnClickListener(v -> saveProfileChanges());
         resetPasswordButton.setOnClickListener(v -> resetPassword());
     }
+
 
     private void fetchUserData(String username) {
         DocumentReference docRef = db.collection("users").document(username);
@@ -66,6 +77,7 @@ public class EditProfile extends AppCompatActivity {
                 firstName = documentSnapshot.getString("firstName");
                 lastName = documentSnapshot.getString("lastName");
                 email = documentSnapshot.getString("email");
+
 
                 // Populate EditTexts
                 if (firstName != null) editFirstName.setText(firstName);
@@ -82,16 +94,47 @@ public class EditProfile extends AppCompatActivity {
         });
     }
 
+
     private void saveProfileChanges() {
         String updatedFirstName = editFirstName.getText().toString().trim();
         String updatedLastName = editLastName.getText().toString().trim();
         String updatedEmail = editEmail.getText().toString().trim();
         String updatedUsername = editUsername.getText().toString().trim();
 
+
+        // Validation: Ensure all fields are filled out
+        if (TextUtils.isEmpty(updatedFirstName)) {
+            editFirstName.setError("First name is required");
+            editFirstName.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(updatedLastName)) {
+            editLastName.setError("Last name is required");
+            editLastName.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(updatedEmail)) {
+            editEmail.setError("Email is required");
+            editEmail.requestFocus();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(updatedEmail).matches()) {
+            editEmail.setError("Enter a valid email");
+            editEmail.requestFocus();
+            return;
+        }
+        if (TextUtils.isEmpty(updatedUsername)) {
+            editUsername.setError("Username is required");
+            editUsername.requestFocus();
+            return;
+        }
+
+
         if (isDataUnchanged(updatedFirstName, updatedLastName, updatedEmail, updatedUsername)) {
             showToast("No changes to save");
             return;
         }
+
 
         DocumentReference docRef = db.collection("users").document(username);
         docRef.update(
@@ -103,9 +146,11 @@ public class EditProfile extends AppCompatActivity {
                 .addOnFailureListener(e -> showToast("Failed to update profile"));
     }
 
+
     private boolean isDataUnchanged(String fName, String lName, String mail, String uName) {
         return fName.equals(firstName) && lName.equals(lastName) && mail.equals(email) && uName.equals(username);
     }
+
 
     private void finishWithSuccess(String fName, String lName, String mail, String uName) {
         showToast("Profile Updated");
@@ -118,8 +163,10 @@ public class EditProfile extends AppCompatActivity {
         finish();
     }
 
+
     private void resetPassword() {
         String email = editEmail.getText().toString().trim();
+
 
         if (TextUtils.isEmpty(email)) {
             editEmail.setError("Enter your registered email.");
@@ -127,14 +174,17 @@ public class EditProfile extends AppCompatActivity {
             return;
         }
 
+
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editEmail.setError("Enter a valid email.");
             editEmail.requestFocus();
             return;
         }
 
+
         sendPasswordResetEmail(email);
     }
+
 
     private void sendPasswordResetEmail(String email) {
         progressBar.setVisibility(View.VISIBLE);
@@ -150,6 +200,7 @@ public class EditProfile extends AppCompatActivity {
                 });
     }
 
+
     private void redirectToProfileFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
@@ -157,7 +208,6 @@ public class EditProfile extends AppCompatActivity {
                 .addToBackStack(null) // Optional: Allows back navigation
                 .commit();
     }
-
 
 
     private void showToast(String message) {

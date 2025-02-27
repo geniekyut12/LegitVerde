@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class Quiz4of3 extends AppCompatActivity {
+public class Quiz5of3 extends AppCompatActivity {
 
     private RadioGroup radioGroup;
     private int score = 0;
@@ -21,9 +21,9 @@ public class Quiz4of3 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_quiz4of3);
+        setContentView(R.layout.activity_quiz5of3);
         // Find the RadioGroup
-        RadioGroup radioGroup = findViewById(R.id.qz3q4chcs);
+        RadioGroup radioGroup = findViewById(R.id.qz3q5chcs);
 
         // Set listener for RadioGroup selection
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
@@ -34,7 +34,7 @@ public class Quiz4of3 extends AppCompatActivity {
                 }
 
                 // Proceed to the next question or finish quiz
-                Intent intent = new Intent(Quiz4of3.this, Quiz5of3.class);
+                Intent intent = new Intent(Quiz5of3.this, Quiz3After.class);
                 // Pass the score to the next activity
                 intent.putExtra("score", score);
                 startActivity(intent);

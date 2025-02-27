@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/gamebg">
+    android:background="@color/mainbg">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/foodhome"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 app:tabIndicatorColor="@color/Brown"
                 app:tabSelectedTextColor="@color/Green"
                 app:tabTextColor="@color/NudeGreen">
@@ -69,8 +69,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
             <!-- MAIN TITLE / HEADER -->
             <TextView
@@ -78,22 +77,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="SUPPORT SUSTAINABILITY.\nCUT CARBON.\nGAIN REWARDS!"
+                android:text="@string/supp"
                 android:textColor="@color/grayG"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/figtreebold" />
+                android:fontFamily="@font/poppins_bold" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Enterprises and Discounts"
+                android:text="@string/entdes"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:fontFamily="@font/figtreebold" />
+                android:fontFamily="@font/poppinsmedium" />
 
             <!-- Enterprises Section -->
             <TextView
@@ -102,14 +101,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:paddingBottom="15dp"
-                android:fontFamily="@font/figtree"
+                android:fontFamily="@font/poppinsregular"
                 android:text="@string/textenters"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:paddingBottom="10dp"
                 android:overScrollMode="never"
                 android:scrollbars="none">
@@ -216,7 +215,7 @@
                 android:id="@+id/tvlearnmores"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="-25dp"
                 android:text="@string/textenterss"
                 android:textColor="@color/black"
                 android:textSize="14sp"
@@ -227,12 +226,12 @@
                 android:id="@+id/tvLearnMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="15dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/learnmore"
                 android:textColor="@color/Green"
                 android:textSize="18sp"
-                android:fontFamily="@font/figtreebold"
+                android:fontFamily="@font/poppins_semibold_italic"
                 android:clickable="true"
                 android:focusable="true"
                 android:onClick="onLearnMoreClicked" />

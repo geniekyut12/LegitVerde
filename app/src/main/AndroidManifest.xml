@@ -30,12 +30,28 @@
         android:theme="@style/Theme.Firstpage"
         tools:targetApi="34">
         <activity
-            android:name=".GamerView"
-            android:configChanges="orientation|screenSize"
+            android:name=".Chall2"
+            android:exported="false" />
+        <activity
+            android:name=".Game3tut"
+            android:exported="false" />
+        <activity
+            android:name=".Game2tut"
+            android:exported="false" /> <!-- Foreground service declaration for location tracking -->
+        <service
+            android:name=".TrackingService"
+            android:enabled="true"
             android:exported="false"
-            android:screenOrientation="landscape" >
-
-        </activity>
+            android:foregroundServiceType="location"
+            tools:replace="android:foregroundServiceType" /> <!-- Full-screen activity for vehicle status prompt -->
+        <activity
+            android:name=".VehicleStatusActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
             android:name=".Quiz4of3"
             android:exported="false" />
@@ -44,6 +60,9 @@
             android:exported="false" />
         <activity
             android:name=".Quiz2of3"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileTermsAndCondition"
             android:exported="false" />
         <activity
             android:name=".Quiz1of2"
@@ -62,24 +81,10 @@
             android:exported="false" />
         <activity
             android:name=".Quiz2After"
-            android:exported="false" /> <!-- Foreground service declaration for location tracking -->
-        <service
-            android:name=".TrackingService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="location"
-            tools:replace="android:foregroundServiceType" /> <!-- Full-screen activity for vehicle status prompt -->
-        <activity
-            android:name=".VehicleStatusActivity"
-            android:excludeFromRecents="true"
-            android:exported="false"
-            android:finishOnTaskLaunch="true"
-            android:launchMode="singleInstance"
-            android:taskAffinity=""
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" /> <!-- Activity Declarations -->
+            android:exported="false" />
         <activity
             android:name=".Winner"
-            android:exported="false" /> <!-- Full-screen activity for vehicle status prompt -->
+            android:exported="false" />
         <activity
             android:name=".BattleEcoActivity"
             android:configChanges="orientation|screenSize"

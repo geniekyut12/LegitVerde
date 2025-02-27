@@ -16,6 +16,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.firstpage.HomeRecomFood.BFastFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -44,6 +48,44 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_homepage, container, false);
+
+        foodhome = view.findViewById(R.id.foodhome);
+        homefood = view.findViewById(R.id.homefood);
+
+        // Set up adapter with fragments
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new BFastFragment());
+        fragments.add(new LunchFragment());
+        fragments.add(new DinnerFragment());
+
+        homefood.getChildAt(0).setOnTouchListener((v, event) -> {
+            v.getParent().requestDisallowInterceptTouchEvent(true);
+            return false;
+        });
+
+
+        tabAdapter = new HomeAdapter(requireActivity(), fragments);
+        homefood.setAdapter(tabAdapter);
+
+        // Link TabLayout with ViewPager2
+        new TabLayoutMediator(foodhome, homefood,
+                (tab, position) -> {
+                    switch (position) {
+                        case 0:
+                            tab.setText("Breakfast");
+                            break;
+                        case 1:
+                            tab.setText("Lunch");
+                            break;
+                        case 2:
+                            tab.setText("Dinner");
+                            break;
+                    }
+                }).attach();
+
+
+        // Initialize the LinearLayouts for food items
+
 
         // Initialize the LinearLayouts for food items
         linearLayoutS = view.findViewById(R.id.linearLayoutSphere);

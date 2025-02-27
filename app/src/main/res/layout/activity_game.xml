@@ -195,64 +195,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- GAME 4 -->
-            <LinearLayout
-                android:id="@+id/game4"
-                android:layout_width="310dp"
-                android:layout_height="170dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/mquizbg"
-                android:elevation="4dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="16dp">
 
-                <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/save" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/gameTitle4"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/figtreebold"
-                        android:text="@string/g4title"
-                        android:textColor="@color/grayG"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/gameDescription4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/g2desc"
-                        android:textSize="11sp"
-                        android:fontFamily="@font/figtree"
-                        android:textColor="@color/grayG" />
-
-                    <Button
-                        android:id="@+id/playButton4"
-                        android:layout_width="127dp"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@drawable/btnquiz"
-                        android:text="@string/startg"
-                        android:textColor="#FFFFFF" />
-                </LinearLayout>
-            </LinearLayout>
 
         </LinearLayout>
 

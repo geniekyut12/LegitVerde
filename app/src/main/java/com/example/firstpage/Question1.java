@@ -32,6 +32,9 @@ public class Question1 extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
 
+    // Flag to track if BMI has been calculated
+    private boolean isBMICalculated = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +62,7 @@ public class Question1 extends AppCompatActivity {
         txtUsername = findViewById(R.id.FetchUName);
 
         // Add validation for weight input (max 150)
-        txtWeight.addTextChangedListener(new TextWatcher()
-        {
+        txtWeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -82,8 +84,9 @@ public class Question1 extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
-        txtHeight.addTextChangedListener(new TextWatcher()
-        {
+
+        // Add validation for height input (max 250)
+        txtHeight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
@@ -91,8 +94,8 @@ public class Question1 extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()) {
                     try {
-                        float weight = Float.parseFloat(s.toString());
-                        if (weight > 250) {
+                        float height = Float.parseFloat(s.toString());
+                        if (height > 250) {
                             txtHeight.setText("250"); // Set max value
                             txtHeight.setSelection(txtHeight.getText().length()); // Move cursor to the end
                         }
@@ -150,6 +153,13 @@ public class Question1 extends AppCompatActivity {
         String heightStr = txtHeight.getText().toString().trim();
         String weightStr = txtWeight.getText().toString().trim();
 
+        // Validate required fields and set error messages if empty
+        if (heightStr.isEmpty()) {
+            txtHeight.setError("Height is required");
+        }
+        if (weightStr.isEmpty()) {
+            txtWeight.setError("Weight is required");
+        }
         if (heightStr.isEmpty() || weightStr.isEmpty()) {
             Toast.makeText(this, "Please enter both height and weight", Toast.LENGTH_SHORT).show();
             return;
@@ -177,7 +187,7 @@ public class Question1 extends AppCompatActivity {
                 status = "You're NORMAL WEIGHT, indicating a healthy weight. Keep up the good work!";
             } else if (bmi < 29.9) {
                 imageResId = R.drawable.overweight;
-                status = "You're OVERWEIGHT,  slightly above the healthy range. Small lifestyle changes can help—you're on the right track!";
+                status = "You're OVERWEIGHT, slightly above the healthy range. Small lifestyle changes can help—you're on the right track!";
             } else {
                 imageResId = R.drawable.obese;
                 status = "You're OBESE, above the healthy range. Healthy habits and support can make a difference—you've got this!";
@@ -185,6 +195,9 @@ public class Question1 extends AppCompatActivity {
 
             bmiStatusImage.setImageResource(imageResId);
             bmiStatus.setText(status);
+
+            // Set flag to indicate BMI calculation was successful
+            isBMICalculated = true;
 
             saveBMIData(bmi, status);
 
@@ -240,6 +253,18 @@ public class Question1 extends AppCompatActivity {
     }
 
     private void navigateToNext() {
+        // Check if a radio button is selected
+        if (radioGroup.getCheckedRadioButtonId() == -1) {
+            Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Check that BMI has been calculated using the flag
+        if (!isBMICalculated) {
+            Toast.makeText(this, "Please calculate your BMI first", Toast.LENGTH_SHORT).show();
+            return;
+        }
         startActivity(new Intent(Question1.this, Question2.class));
     }
 }
+
+

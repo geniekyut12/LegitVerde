@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class QuizFrag extends Fragment {
 
-    private Button btnstartqz1, btnstartqz2;
+    private Button btnstartqz1, btnstartqz2, btnstartqz3;
     private FirebaseFirestore db;
     private String userId;
 
@@ -52,6 +52,7 @@ public class QuizFrag extends Fragment {
 
         btnstartqz1 = view.findViewById(R.id.btnstartqz1);
         btnstartqz2 = view.findViewById(R.id.btnstartqz2);
+        btnstartqz3 = view.findViewById(R.id.btnstartqz3);
 
         // Get today's date as a string in "yyyy-MM-dd" format
         String todayDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
@@ -61,6 +62,8 @@ public class QuizFrag extends Fragment {
                 .collection("quizCompletions").document("quiz1");
         DocumentReference quiz2Ref = db.collection("users").document(userId)
                 .collection("quizCompletions").document("quiz2");
+        DocumentReference quiz3Ref = db.collection("users").document(userId)
+                .collection("quizCompletions").document("quiz3");
 
         // Check if Quiz 1 was already completed today
         quiz1Ref.get().addOnSuccessListener(documentSnapshot -> {
@@ -84,6 +87,17 @@ public class QuizFrag extends Fragment {
             }
         });
 
+        // Check if Quiz 3 was already completed today
+        quiz3Ref.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String storedDate = documentSnapshot.getString("date");
+                if (todayDate.equals(storedDate)) {
+                    btnstartqz3.setAlpha(0.3f);
+                    btnstartqz3.setEnabled(false);
+                }
+            }
+        });
+
         // Set click listeners for each button
         btnstartqz1.setOnClickListener(v -> {
             // Save today's date as the completion date for Quiz 1
@@ -101,6 +115,14 @@ public class QuizFrag extends Fragment {
             navigateToQuiz2();
         });
 
+        btnstartqz3.setOnClickListener(v -> {
+            // Save today's date as the completion date for Quiz 2
+            Map<String, Object> data = new HashMap<>();
+            data.put("date", todayDate);
+            quiz3Ref.set(data);
+            navigateToQuiz3();
+        });
+
         return view;
     }
 
@@ -111,6 +133,11 @@ public class QuizFrag extends Fragment {
 
     private void navigateToQuiz2() {
         Intent intent = new Intent(getActivity(), Quiz1of2.class);
+        startActivity(intent);
+    }
+
+    private void navigateToQuiz3() {
+        Intent intent = new Intent(getActivity(), Quiz1of3.class);
         startActivity(intent);
     }
 }

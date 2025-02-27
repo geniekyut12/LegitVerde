@@ -1,5 +1,6 @@
 package com.example.firstpage;
 
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -16,24 +17,39 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.google.firebase.firestore.FieldValue;    // <-- for increment
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
+
 public class BattleEcoActivity extends AppCompatActivity {
+
 
     private TextView playerHealthText, computerHealthText, roundCounterText, battleLogText;
     private TextView playerShieldText, computerShieldText, playerEnergyText, computerEnergyText;
 
+
     private ImageView aiDeckPreview, aiDrawnCard, aiCharacterImage;
     private ImageView playerDeckPreview, playerDrawnCard, playerCharacterImage;
 
+
     private LinearLayout handLayout;
 
+
     private Button playerDrawButton;
+
 
     private int playerHealth = 100;
     private int computerHealth;
@@ -42,11 +58,14 @@ public class BattleEcoActivity extends AppCompatActivity {
     private final int MAX_ROUNDS = 25;
     private int currentRound = 1;
 
+
     private Player player, computer;
     private List<BattleCard> playerHand;
     private Handler handler = new Handler();
     private MediaPlayer backgroundMusic;
 
+
+    // Boss info
     private int currentBossIndex = 0;
     private final int[] BOSS_HEALTHS = {100, 120, 150};
     private final int[] BOSS_BACKGROUNDS = {
@@ -60,11 +79,14 @@ public class BattleEcoActivity extends AppCompatActivity {
             R.drawable.taco_boss
     };
 
+
     private boolean playerAttacksFirst;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         // ***** Force fullscreen (remove status bar) *****
         getWindow().setFlags(
@@ -76,9 +98,11 @@ public class BattleEcoActivity extends AppCompatActivity {
         }
         // ***** End fullscreen code *****
 
+
         setContentView(R.layout.activity_battle_eco);
 
-        // Bind UI components.
+
+        // Bind UI components
         playerHealthText = findViewById(R.id.playerHealthText);
         computerHealthText = findViewById(R.id.computerHealthText);
         roundCounterText = findViewById(R.id.roundCounterText);
@@ -88,33 +112,45 @@ public class BattleEcoActivity extends AppCompatActivity {
         playerEnergyText = findViewById(R.id.playerEnergyText);
         computerEnergyText = findViewById(R.id.computerEnergyText);
 
+
         aiDeckPreview = findViewById(R.id.aiDeckPreview);
         aiDrawnCard = findViewById(R.id.aiDrawnCard);
         aiCharacterImage = findViewById(R.id.aiCharacterImage);
+
 
         playerDeckPreview = findViewById(R.id.playerDeckPreview);
         playerDrawnCard = findViewById(R.id.playerDrawnCard);
         playerCharacterImage = findViewById(R.id.playerCharacterImage);
 
+
         handLayout = findViewById(R.id.handLayout);
         playerDrawButton = findViewById(R.id.playerDrawButton);
 
+
         handLayout.setVisibility(View.GONE);
 
+
+        // Background music
         backgroundMusic = MediaPlayer.create(this, R.raw.music_cardgame);
         backgroundMusic.setLooping(true);
         backgroundMusic.start();
 
+
+        // Initialize players
         player = new Player("Player", 100);
         computer = new Player("Computer", BOSS_HEALTHS[currentBossIndex]);
         computerHealth = BOSS_HEALTHS[currentBossIndex];
 
+
+        // Set boss image and background
         aiCharacterImage.setImageResource(BOSS_IMAGES[currentBossIndex]);
         findViewById(R.id.battleEcoRoot).setBackgroundResource(BOSS_BACKGROUNDS[currentBossIndex]);
 
+
         playerHand = new ArrayList<>();
 
-        // Add cards to the decks.
+
+        // Add cards to player deck
         player.addCard(new BattleCard(CardType.HEAL, 25, "Heal (+25 HP)", R.drawable.banana_cards));
         player.addCard(new BattleCard(CardType.ENERGY, 1, "Energy (+1 Energy)", R.drawable.almond_cards));
         player.addCard(new BattleCard(CardType.SHIELD, 40, "Shield (+40 Shields)", R.drawable.peas_cards));
@@ -123,6 +159,8 @@ public class BattleEcoActivity extends AppCompatActivity {
         player.addCard(new BattleCard(CardType.PIERCING, 30, "Piercing (-30 Damage, Ignores Shields)", R.drawable.shrimp_cards));
         player.addCard(new BattleCard(CardType.NORMAL_ATTACK, 20, "Normal Attack (-20 Damage, No Energy Cost)", R.drawable.artificial_growth_cards));
 
+
+        // Add cards to computer deck
         computer.addCard(new BattleCard(CardType.HEAL, 25, "Heal (+25 HP)", R.drawable.banana_cards));
         computer.addCard(new BattleCard(CardType.ENERGY, 1, "Energy (+1 Energy)", R.drawable.almond_cards));
         computer.addCard(new BattleCard(CardType.SHIELD, 40, "Shield (+40 Shields)", R.drawable.peas_cards));
@@ -131,29 +169,29 @@ public class BattleEcoActivity extends AppCompatActivity {
         computer.addCard(new BattleCard(CardType.PIERCING, 30, "Piercing (-30 Damage, Ignores Shields)", R.drawable.shrimp_cards));
         computer.addCard(new BattleCard(CardType.NORMAL_ATTACK, 20, "Normal Attack (-20 Damage, No Energy Cost)", R.drawable.artificial_growth_cards));
 
+
+        // Update deck previews
         updateDeckPreview(player, playerDeckPreview);
         updateDeckPreview(computer, aiDeckPreview);
+
 
         updateUI();
         updateRoundCounter();
 
-        showInstructionDialogue(new Runnable() {
-            @Override
-            public void run() {
-                rollForFirstAttacker();
-            }
-        });
 
-        playerDrawButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (playerHealth > 0 && computerHealth > 0) {
-                    drawInitialHand();
-                    showHandSelection();
-                }
+        // Show instructions via NPC dialogue
+        showInstructionDialogue(() -> rollForFirstAttacker());
+
+
+        // Draw button logic
+        playerDrawButton.setOnClickListener(view -> {
+            if (playerHealth > 0 && computerHealth > 0) {
+                drawInitialHand();
+                showHandSelection();
             }
         });
     }
+
 
     @Override
     protected void onPause() {
@@ -163,6 +201,7 @@ public class BattleEcoActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -170,6 +209,7 @@ public class BattleEcoActivity extends AppCompatActivity {
             backgroundMusic.start();
         }
     }
+
 
     @Override
     protected void onDestroy() {
@@ -181,12 +221,14 @@ public class BattleEcoActivity extends AppCompatActivity {
         }
     }
 
-    // Show instruction dialogue via NPC.
+
+    // Show instruction dialogue via NPC
     private void showInstructionDialogue(final Runnable onCloseAction) {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_npc_explanation, null);
         ImageView npcImage = dialogView.findViewById(R.id.npcImage);
         TextView npcMessage = dialogView.findViewById(R.id.npcMessage);
         Button npcCloseButton = dialogView.findViewById(R.id.npcCloseButton);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.TransparentFullScreenDialog);
         builder.setView(dialogView);
@@ -201,13 +243,16 @@ public class BattleEcoActivity extends AppCompatActivity {
             }
         });
 
+
         playerDrawButton.setEnabled(false);
+
 
         animateText(npcMessage,
                 "Instructions: Use your cards wisely. Red cards cost 1 energy except 1 red card which Artificial Growth, ENERGY cards add energy, " +
                         "HEAL restores HP, and SHIELD protects you. Tap 'Draw Card' to begin the battle.",
                 0
         );
+
 
         npcCloseButton.setOnClickListener(v -> {
             npcDialog.dismiss();
@@ -218,13 +263,16 @@ public class BattleEcoActivity extends AppCompatActivity {
         npcDialog.show();
     }
 
+
     private void rollForFirstAttacker() {
         playerDrawButton.setEnabled(false);
+
 
         final int rollDuration = 2000;
         final int rollInterval = 200;
         final Handler rollHandler = new Handler();
         final long startTime = System.currentTimeMillis();
+
 
         rollHandler.post(new Runnable() {
             @Override
@@ -245,38 +293,34 @@ public class BattleEcoActivity extends AppCompatActivity {
                         battleLogText.setText("Final result: AI will attack first");
                         playerAttacksFirst = false;
                     }
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            showNpcDialogue(
-                                    "Intro: The forest is under siege! The Burger Boss, Cake Boss, and Taco Boss " +
-                                            "have invaded our woodland home, unleashing high carbon chaos and polluting " +
-                                            "the skies. Only the noble Plant Heroes, champions of low carbon and " +
-                                            "sustainability, can restore balance and save the ecosystem.",
-                                    false
-                            );
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (playerAttacksFirst) {
-                                        playerDrawButton.setEnabled(true);
-                                    } else {
-                                        processComputerTurn();
-                                    }
-                                }
-                            }, 2000);
-                        }
+                    handler.postDelayed(() -> {
+                        showNpcDialogue(
+                                "Intro: The forest is under siege! The Burger Boss, Cake Boss, and Taco Boss " +
+                                        "have invaded our woodland home, unleashing high carbon chaos and polluting " +
+                                        "the skies. Only the noble Plant Heroes, champions of low carbon and " +
+                                        "sustainability, can restore balance and save the ecosystem.",
+                                false
+                        );
+                        handler.postDelayed(() -> {
+                            if (playerAttacksFirst) {
+                                playerDrawButton.setEnabled(true);
+                            } else {
+                                processComputerTurn();
+                            }
+                        }, 2000);
                     }, 1000);
                 }
             }
         });
     }
 
+
     private void showNpcDialogue(String message, boolean enableAfterDismiss) {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_npc_explanation, null);
         ImageView npcImage = dialogView.findViewById(R.id.npcImage);
         TextView npcMessage = dialogView.findViewById(R.id.npcMessage);
         Button npcCloseButton = dialogView.findViewById(R.id.npcCloseButton);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.TransparentFullScreenDialog);
         builder.setView(dialogView);
@@ -291,28 +335,29 @@ public class BattleEcoActivity extends AppCompatActivity {
             }
         });
 
+
         playerDrawButton.setEnabled(false);
 
+
         animateText(npcMessage, message, 0);
+
 
         npcCloseButton.setOnClickListener(v -> {
             npcDialog.dismiss();
             if (enableAfterDismiss) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        playerDrawButton.setEnabled(true);
-                    }
-                }, 500);
+                handler.postDelayed(() -> playerDrawButton.setEnabled(true), 500);
             }
         });
+
 
         npcDialog.show();
     }
 
+
     private void showNpcDialogue(String message) {
         showNpcDialogue(message, true);
     }
+
 
     private void drawInitialHand() {
         playerHand.clear();
@@ -322,11 +367,13 @@ public class BattleEcoActivity extends AppCompatActivity {
         updateHandUI();
     }
 
+
     private BattleCard drawCardFromReserve() {
         if (player.getDeck().isEmpty()) return null;
         int index = new Random().nextInt(player.getDeck().size());
         return player.getDeck().get(index);
     }
+
 
     private void updateHandUI() {
         handLayout.removeAllViews();
@@ -345,75 +392,71 @@ public class BattleEcoActivity extends AppCompatActivity {
         }
     }
 
+
     private void showHandSelection() {
         playerDrawnCard.setVisibility(View.INVISIBLE);
-        // Do not hide the AI's card here.
         handLayout.setVisibility(View.VISIBLE);
         handLayout.bringToFront();
         handLayout.setElevation(100f);
+
 
         ViewGroup parent = (ViewGroup) handLayout.getParent();
         parent.requestLayout();
         parent.invalidate();
 
+
         playerDrawButton.setEnabled(false);
     }
 
+
     private void processPlayerTurnWithCard(BattleCard card) {
         battleLogText.setText("");
-        animateDeckDraw(playerDeckPreview, playerDrawnCard, card.getImageResId(), new Runnable() {
-            @Override
-            public void run() {
-                applyCardEffect(card, true);
-                updateUI();
-                currentRound++;
-                updateRoundCounter();
-                updateDeckPreview(player, playerDeckPreview);
-                handLayout.setVisibility(View.GONE);
-                afterTurnCheck();
-                if (playerHealth > 0 && computerHealth > 0) {
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            processComputerTurn();
-                        }
-                    }, 2000);
-                }
+        animateDeckDraw(playerDeckPreview, playerDrawnCard, card.getImageResId(), () -> {
+            applyCardEffect(card, true);
+            updateUI();
+            currentRound++;
+            updateRoundCounter();
+            updateDeckPreview(player, playerDeckPreview);
+            handLayout.setVisibility(View.GONE);
+            afterTurnCheck();
+            if (playerHealth > 0 && computerHealth > 0) {
+                handler.postDelayed(this::processComputerTurn, 2000);
             }
         });
     }
 
+
     private void processComputerTurn() {
         playerDrawButton.setEnabled(false);
+
 
         BattleCard card = computer.drawRandomCard();
         if (card != null) {
             battleLogText.setText("");
-            animateDeckDraw(aiDeckPreview, aiDrawnCard, card.getImageResId(), new Runnable() {
-                @Override
-                public void run() {
-                    applyCardEffect(card, false);
-                    updateUI();
-                    currentRound++;
-                    updateRoundCounter();
-                    updateDeckPreview(computer, aiDeckPreview);
-                    afterTurnCheck();
-                    if (playerHealth > 0 && computerHealth > 0) {
-                        playerDrawButton.setEnabled(true);
-                    }
+            animateDeckDraw(aiDeckPreview, aiDrawnCard, card.getImageResId(), () -> {
+                applyCardEffect(card, false);
+                updateUI();
+                currentRound++;
+                updateRoundCounter();
+                updateDeckPreview(computer, aiDeckPreview);
+                afterTurnCheck();
+                if (playerHealth > 0 && computerHealth > 0) {
+                    playerDrawButton.setEnabled(true);
                 }
             });
         }
     }
 
-    // In applyCardEffect, red cards (POISON, SLASH, PIERCING) are now allowed even if energy is 0.
-    // If energy is available, subtract 1 and use full effect.
-    // Otherwise, set the effective damage to 0.
+
+    // Red cards: if you have energy >=1, use full effect; else effect=0
     private void applyCardEffect(BattleCard card, boolean isPlayerTurn) {
         String logMessage = "";
-        // Determine the effective value to use.
         int effectValue = card.getEffectValue();
-        if (card.getType() == CardType.POISON || card.getType() == CardType.SLASH || card.getType() == CardType.PIERCING) {
+
+
+        if (card.getType() == CardType.POISON
+                || card.getType() == CardType.SLASH
+                || card.getType() == CardType.PIERCING) {
             if (isPlayerTurn) {
                 if (playerEnergy >= 1) {
                     playerEnergy--;
@@ -428,6 +471,8 @@ public class BattleEcoActivity extends AppCompatActivity {
                 }
             }
         }
+
+
         switch (card.getType()) {
             case HEAL:
                 if (isPlayerTurn) {
@@ -461,16 +506,13 @@ public class BattleEcoActivity extends AppCompatActivity {
                 final int dps = (effectValue == 0) ? 0 : 3;
                 Handler poisonHandler = new Handler();
                 for (int i = 1; i <= ticks; i++) {
-                    poisonHandler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (isPlayerTurn) {
-                                computerHealth -= dps;
-                            } else {
-                                playerHealth -= dps;
-                            }
-                            updateUI();
+                    poisonHandler.postDelayed(() -> {
+                        if (isPlayerTurn) {
+                            computerHealth -= dps;
+                        } else {
+                            playerHealth -= dps;
                         }
+                        updateUI();
                     }, i * 1000);
                 }
                 if (isPlayerTurn) {
@@ -542,6 +584,7 @@ public class BattleEcoActivity extends AppCompatActivity {
         battleLogText.setText(logMessage);
     }
 
+
     private void updateUI() {
         playerHealthText.setText("Player Health: " + playerHealth);
         computerHealthText.setText("Computer Health: " + computerHealth);
@@ -551,12 +594,14 @@ public class BattleEcoActivity extends AppCompatActivity {
         computerEnergyText.setText("Energy: " + computerEnergy);
     }
 
+
     private void updateRoundCounter() {
         roundCounterText.setText("Round: " + currentRound + " / " + MAX_ROUNDS);
         View root = findViewById(R.id.battleEcoRoot);
         root.setBackgroundResource(BOSS_BACKGROUNDS[currentBossIndex]);
         aiCharacterImage.setImageResource(BOSS_IMAGES[currentBossIndex]);
     }
+
 
     private void afterTurnCheck() {
         boolean deathOccurred = false;
@@ -570,6 +615,7 @@ public class BattleEcoActivity extends AppCompatActivity {
             proceedToNextBossOrWin();
         }
         if (!deathOccurred) {
+            // Show Eco Tips
             switch (currentRound) {
                 case 3:
                     showEcoTipDialogue("Eco-Tip: Buying local produce cuts transportation emissions. Shop local, fight global warming!");
@@ -587,20 +633,25 @@ public class BattleEcoActivity extends AppCompatActivity {
         }
     }
 
+
     private void showEcoTipDialogue(String message) {
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_npc_explanation, null);
         ImageView npcImage = dialogView.findViewById(R.id.npcImage);
         TextView npcMessage = dialogView.findViewById(R.id.npcMessage);
         Button npcCloseButton = dialogView.findViewById(R.id.npcCloseButton);
 
+
         npcCloseButton.setVisibility(View.GONE);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.TransparentFullScreenDialog);
         builder.setView(dialogView);
         final AlertDialog ecoDialog = builder.create();
 
+
         ecoDialog.setCancelable(false);
         ecoDialog.setCanceledOnTouchOutside(false);
+
 
         ecoDialog.setOnShowListener(dialogInterface -> {
             if (ecoDialog.getWindow() != null) {
@@ -609,15 +660,16 @@ public class BattleEcoActivity extends AppCompatActivity {
             }
         });
 
-        // Animate the message text
+
+        // Animate text
         animateText(npcMessage, message, 0);
+
 
         ecoDialog.show();
 
-        // Automatically dismiss the eco tip after 3 seconds (adjust as needed)
-        handler.postDelayed(() -> {
-            ecoDialog.dismiss();
-        }, 7000);
+
+        // Auto-dismiss after 7s
+        handler.postDelayed(ecoDialog::dismiss, 7000);
     }
 
 
@@ -651,7 +703,25 @@ public class BattleEcoActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Called after a boss is defeated. We award points, then move to the next boss or end the game.
+     */
     private void proceedToNextBossOrWin() {
+        // Award points based on the boss we just defeated (currentBossIndex).
+        // 0 -> Burger, 1 -> Cake, 2 -> Taco
+        if (currentBossIndex == 0) {
+            // Defeated Burger Boss
+            storeVictoryInFirestoreIncrement(30);
+        } else if (currentBossIndex == 1) {
+            // Defeated Cake Boss
+            storeVictoryInFirestoreIncrement(50);
+        } else if (currentBossIndex == 2) {
+            // Defeated Taco Boss
+            storeVictoryInFirestoreIncrement(80);
+        }
+
+
+        // Move to the next boss
         currentBossIndex++;
         if (currentBossIndex < BOSS_HEALTHS.length) {
             computerHealth = BOSS_HEALTHS[currentBossIndex];
@@ -660,17 +730,10 @@ public class BattleEcoActivity extends AppCompatActivity {
             updateUI();
             updateRoundCounter();
 
-            // Debug log: (replace with Log.d if you prefer)
-            Toast.makeText(this, "Proceeding to boss index: " + currentBossIndex, Toast.LENGTH_SHORT).show();
 
-            // Use a slight delay to ensure UI has settled.
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    showBossIntroDialogue(currentBossIndex);
-                }
-            }, 500);
+            handler.postDelayed(() -> showBossIntroDialogue(currentBossIndex), 500);
         } else {
+            // All bosses defeated
             showNpcDialogue("Congratulations! You have defeated all the bosses and saved the forest!", true);
             gameOver();
         }
@@ -688,6 +751,7 @@ public class BattleEcoActivity extends AppCompatActivity {
         }
     }
 
+
     private void updateDeckPreview(Player p, ImageView deckPreview) {
         BattleCard next = p.drawRandomCard();
         if (next != null) {
@@ -701,14 +765,14 @@ public class BattleEcoActivity extends AppCompatActivity {
         }
     }
 
+
     private void animateText(TextView textView, String text, int index) {
         if (index < text.length()) {
             textView.setText(text.substring(0, index + 1));
-            new Handler().postDelayed(() -> {
-                animateText(textView, text, index + 1);
-            }, 40);
+            new Handler().postDelayed(() -> animateText(textView, text, index + 1), 40);
         }
     }
+
 
     private void animateDeckDraw(final ImageView deckPreview, final ImageView drawnCard,
                                  final int newImageResId, final Runnable onAnimationEnd) {
@@ -716,21 +780,26 @@ public class BattleEcoActivity extends AppCompatActivity {
         mp.start();
         mp.setOnCompletionListener(MediaPlayer::release);
 
+
         drawnCard.setImageResource(newImageResId);
         drawnCard.setVisibility(View.INVISIBLE);
+
 
         final int[] startPos = new int[2];
         final int[] targetPos = new int[2];
         deckPreview.getLocationOnScreen(startPos);
         drawnCard.getLocationOnScreen(targetPos);
 
+
         final float deltaX = startPos[0] - targetPos[0];
         final float deltaY = startPos[1] - targetPos[1];
+
 
         drawnCard.setTranslationX(deltaX);
         drawnCard.setTranslationY(deltaY);
         drawnCard.setRotationY(0f);
         drawnCard.setVisibility(View.VISIBLE);
+
 
         ObjectAnimator flipOut = ObjectAnimator.ofFloat(drawnCard, "rotationY", 0f, 90f);
         flipOut.setDuration(200);
@@ -744,14 +813,17 @@ public class BattleEcoActivity extends AppCompatActivity {
             }
         });
 
+
         ObjectAnimator translateXAnim = ObjectAnimator.ofFloat(drawnCard, "translationX", deltaX, 0f);
         ObjectAnimator translateYAnim = ObjectAnimator.ofFloat(drawnCard, "translationY", deltaY, 0f);
         translateXAnim.setDuration(400);
         translateYAnim.setDuration(400);
 
+
         translateXAnim.start();
         translateYAnim.start();
         flipOut.start();
+
 
         translateYAnim.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -761,5 +833,31 @@ public class BattleEcoActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+
+    /**
+     * Increment Firestore fields after defeating each boss.
+     * For example, we increment "points" and "highScore" by the given amount.
+     */
+    private void storeVictoryInFirestoreIncrement(int pointsEarned) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+        Map<String, Object> updates = new HashMap<>();
+        // If you only want to increment "points", remove "highScore" or vice versa
+        updates.put("points", FieldValue.increment(pointsEarned));
+        updates.put("highScore", FieldValue.increment(pointsEarned));
+
+
+        db.collection("Games").document("Jonr")
+                // .update(updates) would fail if doc doesn't exist; set(..., merge()) will create or merge
+                .set(updates, SetOptions.merge())
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(this, "Points incremented in Firestore by " + pointsEarned + "!", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(this, "Error updating Firestore: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 }
